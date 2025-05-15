@@ -107,5 +107,5 @@ end
 
 return require("telescope").register_extension({
   exports = {
-    git_hunks = M.git_hunks,
+    git_diff = M.git_hunks,
   },
