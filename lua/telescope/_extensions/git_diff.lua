@@ -87,21 +87,25 @@ M.git_hunks = function()
 	collect_diff_lines(function(lines)
 		local entries = parse_diff_lines(lines)
 
-		pickers
-			.new({}, {
-				prompt_title = "Git hunks",
-				results_title = "Git hunks",
-				finder = finders.new_table({
-					results = entries,
-					entry_maker = function(entry)
-						return entry
-					end,
-				}),
-				sorter = sorters.get_generic_fuzzy_sorter(),
-				previewer = conf.grep_previewer({}),
-				layout_strategy = "flex",
-			})
-			:find()
+		vim.schedule(function()
+			vim.schedule(function()
+				pickers
+					.new({}, {
+						prompt_title = "Git hunks",
+						results_title = "Git hunks",
+						finder = finders.new_table({
+							results = entries,
+							entry_maker = function(entry)
+								return entry
+							end,
+						}),
+						sorter = sorters.get_generic_fuzzy_sorter(),
+						previewer = conf.grep_previewer({}),
+						layout_strategy = "flex",
+					})
+					:find()
+			end)
+		end)
 	end)
 end
 
